@@ -1,92 +1,84 @@
-# React Native Template
+# React Native Boilerplate Project
 
+This project is to be used for the basis of Digio Internal Training.
 
+## Prerequisites
 
-## Getting started
+- A suitable code editor set up in advance
+- Basic React knowledge
+- Basic TypeScript knowledge
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Setup Instructions
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+1. Ensure the following software is installed:
 
-## Add your files
+- [Homebrew](https://brew.sh/)
+- Node (version 14 or later)
+  - [NVM](https://github.com/nvm-sh/nvm) is preferred as to not disrupt other workspaces relying on a particular Node version as there are some cases where React Native is incompatible with certain Node versions, `19.9.0` is the latest I've found to work.
+- [Rbenv](https://github.com/rbenv/rbenv) (with version 3.1.2 installed)
+- [Xcode v14.3](https://developer.apple.com/download/all/?q=Xcode)
+- [Xcode Command Line Tools](https://developer.apple.com/download/all/?q=Xcode)
+  - Ensure the version of Command Line Tools matches the version of Xcode
+- [Android Studio](https://developer.android.com/studio) (Flamingo version)
+  - Make sure to check `Android SDK`, `Android SDK Platform` and `Android Virtual Device` when installing.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+2. Fork this repo using your preferred method
+3. Clone the repo from your personal Gitlab account
+4. Run `yarn install` to download the necessary dependencies for this project
+5. Run `cd ios` then `bundle install` then `bundle exec pod install` to install the iOS dependencies as the Pods folder is under `.gitignore`
 
-```
-cd existing_repo
-git remote add origin https://gitlab.mantelgroup.com.au/olly.wilson/react-native-template.git
-git branch -M main
-git push -uf origin main
-```
+## iOS Setup
 
-## Integrate with your tools
+This is (hopefully) the more straightforward of the two operating systems. To run the project in a local iOS simulator:
 
-- [ ] [Set up project integrations](https://gitlab.mantelgroup.com.au/olly.wilson/react-native-template/-/settings/integrations)
+1. In the root directory of the project, open a terminal and run `brew install watchman`
+2. Run `yarn ios` in the terminal
 
-## Collaborate with your team
+If everything has been installed correctly, the Metro bundler and an iOS Simulator should run and launch the app locally.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+- The targeted iOS simulator can be altered by adding a `--simulator="<Name of iOS device>"` to `yarn ios` in either the `package.json` script or in the command line.
+  e.g. `yarn ios --simulator="iPhone 14 Pro Max"` or
+  in `package.json` as a default simulator:
+  ```
+  "scripts": {
+    "ios": "react-native run-ios --simulator='iPhone 14 Pro Max'"
+  }
+  ```
 
-## Test and Deploy
+## Android Setup
 
-Use the built-in continuous integration in GitLab.
+The Android setup requires a few additional steps to get up and running:
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+1. Run `brew tap homebrew/cask-versions` then `brew install --cask zulu11`
 
-***
+- Zulu11 is an OpenJDK for M1 Macs
 
-# Editing this README
+2. Open Android Studio and from the landing screen navigate to `More Actions` and select `SDK Manager`
+3. Check `Show Package Details` in the bottom right corner
+4. Look for the `Android 13 (Tiramisu)` entry and select:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+- `Android SDK Platform 33`
+- `Google APIs ARM 64 v8a System Image` (M1 Macs only)
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+5. Select `Apply` to download the selected software
+6. Configure the `ANDROID_HOME` environment variables by running `open ~/.zshrc` (or bash equivalent) and pasting the following lines:
 
-## Name
-Choose a self-explaining name for your project.
+- `export ANDROID_HOME=$HOME/Library/Android/sdk`
+- `export PATH=$PATH:$ANDROID_HOME/emulator`
+- `export PATH=$PATH:$ANDROID_HOME/platform-tools`
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+7. Save and run `source ~/.zshrc` to apply changes
+8. Verify the appropriate directories have been added to your path with `echo $ANDROID_HOME` then `echo $PATH`
+9. Create an Android Virtual Device:
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+- From the Android Studio landing screen, navigate to `More Actions` and then `Virtual Device Manager`
+- From the main Virtual Device Manager screen, select `Create device`
+- As a starting point, select a Pixel 6 (supports Android 13 Tiramisu) and click `Next`
+- For the Android Version, select `ARM Images` and download the latest image (should be version `S` targeting Android 12.0)
+- The default settings should be fine as a starting point, but for consistency's sake, you may want to select `Show Advanced Settings` and uncheck `Enable Device Frame` to avoid any strange device-specific camera islands or frame notches
+- Ensure this device runs by running `yarn android` - if it does, you can safely delete the device from Virtual Device Manager
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+10. Create another device, now targetting Android 13 (select `Tiramisu` from the `Recommended` tab instead of `ARM Images` tab) - this is just a sanity check to ensure there are no issues as there have been problems experienced when using Android versions in the Recommended tab straight off the bat.
+11. In a terminal pointing at the project's root directory, run `yarn android` and ensure the Android 13 device runs correctly
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+If everything has been installed correctly, the Metro bundler and an Android Emulator should run and launch the app locally.
