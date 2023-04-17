@@ -14,7 +14,7 @@ This project is to be used for the basis of Digio Internal Training.
 
 - [Homebrew](https://brew.sh/)
 - Node (version 14 or later)
-  - [NVM](https://github.com/nvm-sh/nvm) is preferred as to not disrupt other workspaces relying on a particular Node version as there are some cases where React Native is incompatible with certain Node versions, `19.9.0` is the latest I've found to work.
+  - [NVM](https://github.com/nvm-sh/nvm) is preferred as to not disrupt other workspaces relying on a particular Node version as there are some cases where React Native is incompatible with certain Node versions, `18.16.0` is the latest I've found to work.
 - [Rbenv](https://github.com/rbenv/rbenv) (with version 3.1.2 installed)
 - [Xcode v14.3](https://developer.apple.com/download/all/?q=Xcode)
 - [Xcode Command Line Tools](https://developer.apple.com/download/all/?q=Xcode)
