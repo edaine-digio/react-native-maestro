@@ -4,6 +4,7 @@ This project is to be used for the basis of Digio Internal Training.
 
 ## Prerequisites
 
+- A Mac machine, preferably M1 (sorry Windows enthusiasts - you can't download Xcode on non-Apple machines)
 - A suitable code editor set up in advance
 - Basic React knowledge
 - Basic TypeScript knowledge
@@ -71,7 +72,8 @@ The Android setup requires a few additional steps to get up and running:
 
 7. Save and run `source ~/.zshrc` to apply changes
 8. Verify the appropriate directories have been added to your path with `echo $ANDROID_HOME` then `echo $PATH`
-9. Create an Android Virtual Device:
+9. Before continuing, restart your device to ensure the changes and new downloads take effect
+10. Create an Android Virtual Device:
 
 - From the Android Studio landing screen, navigate to `More Actions` and then `Virtual Device Manager`
 - From the main Virtual Device Manager screen, select `Create device`
@@ -80,7 +82,7 @@ The Android setup requires a few additional steps to get up and running:
 - The default settings should be fine as a starting point, but for consistency's sake, you may want to select `Show Advanced Settings` and uncheck `Enable Device Frame` to avoid any strange device-specific camera islands or frame notches
 - Ensure this device runs by running `yarn android` - if it does, you can safely delete the device from Virtual Device Manager
 
-10. Create another device, now targetting Android 13 (select `Tiramisu` from the `Recommended` tab instead of `ARM Images` tab) - this is just a sanity check to ensure there are no issues as there have been problems experienced when using Android versions in the Recommended tab straight off the bat.
-11. In a terminal pointing at the project's root directory, run `yarn android` and ensure the Android 13 device runs correctly
+11. Create another device, now targetting Android 13 (select `Tiramisu` from the `Recommended` tab instead of `ARM Images` tab) - this is just a sanity check to ensure there are no issues as there have been problems experienced when using Android versions in the Recommended tab straight off the bat.
+12. In a terminal pointing at the project's root directory, run `yarn android` and ensure the Android 13 device runs correctly
 
 If everything has been installed correctly, the Metro bundler and an Android Emulator should run and launch the app locally.

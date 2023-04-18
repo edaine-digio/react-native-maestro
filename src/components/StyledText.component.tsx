@@ -64,8 +64,8 @@ const useStyles = (
   fontFamily: string,
   color: string,
   alignment: TextAlign
-) => {
-  return StyleSheet.create({
+) =>
+  StyleSheet.create({
     text: {
       fontSize: fontSize,
       fontFamily: fontFamily,
@@ -73,4 +73,3 @@ const useStyles = (
       textAlign: alignment
     }
   })
-}
