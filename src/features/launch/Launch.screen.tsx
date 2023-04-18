@@ -1,38 +1,26 @@
 import React from 'react'
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, StyleSheet, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { Colours } from 'src/common/Colours'
 import { SvgImages } from 'src/common/Images'
-import { isIos } from 'src/utils/deviceUtils/deviceUtils'
+import { StyledText, TextAlign } from 'src/components/StyledText.component'
 
-export const Launch = () => {
-  const ios: boolean = isIos()
-
-  // WIP - Text Component needs refining
-  return (
-    <LinearGradient
-      style={styles.screenContainer}
-      colors={[Colours.Peach, Colours.Sand]}>
-      <SafeAreaView style={styles.content}>
-        <View style={styles.svg}>
-          <SvgImages.DigioPrimary />
-        </View>
-        <View style={styles.title}>
-          <Text
-            style={{
-              fontFamily: ios ? 'Archivo' : 'Archivo-Regular',
-              fontSize: 36,
-              textAlign: 'center',
-              fontWeight: '500',
-              color: Colours.Black
-            }}>
-            This is the Launch screen
-          </Text>
-        </View>
-      </SafeAreaView>
-    </LinearGradient>
-  )
-}
+export const Launch = () => (
+  <LinearGradient
+    style={styles.screenContainer}
+    colors={[Colours.Peach, Colours.Sand]}>
+    <SafeAreaView style={styles.content}>
+      <View style={styles.svg}>
+        <SvgImages.DigioPrimary />
+      </View>
+      <View style={styles.title}>
+        <StyledText fontSize={30} fontWeight={100} alignment={TextAlign.Centre}>
+          This is the Launch screen page
+        </StyledText>
+      </View>
+    </SafeAreaView>
+  </LinearGradient>
+)
 
 const styles = StyleSheet.create({
   screenContainer: {

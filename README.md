@@ -15,7 +15,9 @@ This project is to be used for the basis of Digio Internal Training.
 - [Homebrew](https://brew.sh/)
 - Node (version 14 or later)
   - [NVM](https://github.com/nvm-sh/nvm) is preferred as to not disrupt other workspaces relying on a particular Node version as there are some cases where React Native is incompatible with certain Node versions, `18.16.0` is the latest I've found to work.
-- [Rbenv](https://github.com/rbenv/rbenv) (with version 3.1.2 installed)
+- [Rbenv](https://github.com/rbenv/rbenv) (follow the library's readme and install Ruby version 3.1.2)
+  - Run `rbenv init` then `rbenv install 3.1.2` in the project directory
+  - Run `rbenv local 3.1.2` then restart your terminal to ensure the changes take effect
 - [Xcode v14.3](https://developer.apple.com/download/all/?q=Xcode)
 - [Xcode Command Line Tools](https://developer.apple.com/download/all/?q=Xcode)
   - Ensure the version of Command Line Tools matches the version of Xcode
