@@ -1,26 +1,42 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React from 'react'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
+import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { Colours } from 'src/common/Colours'
 import { SvgImages } from 'src/common/Images'
+import { Font, Padding } from 'src/common/Sizes'
 import { StyledText, TextAlign } from 'src/components/StyledText.component'
+import { RootStackParamList, RootStackRoutes } from 'src/utils/navigationUtils'
 
-export const Launch = () => (
-  <LinearGradient
-    style={styles.screenContainer}
-    colors={[Colours.Peach, Colours.Sand]}>
-    <SafeAreaView style={styles.content}>
-      <View style={styles.svg}>
-        <SvgImages.DigioPrimary />
-      </View>
-      <View style={styles.title}>
-        <StyledText fontSize={30} fontWeight={100} alignment={TextAlign.Centre}>
-          This is the Launch screen page
-        </StyledText>
-      </View>
-    </SafeAreaView>
-  </LinearGradient>
-)
+type LaunchScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  RootStackRoutes.Launch
+>
+
+export const Launch = ({ navigation }: LaunchScreenProps) => {
+  return (
+    <LinearGradient
+      style={styles.screenContainer}
+      colors={[Colours.Peach, Colours.Sand]}>
+      <SafeAreaView style={styles.content}>
+        <View style={styles.svg}>
+          <SvgImages.DigioPrimary />
+        </View>
+        <View style={styles.title}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate(RootStackRoutes.RootNavigation)}>
+            <StyledText
+              fontSize={Font.XL}
+              fontWeight={100}
+              alignment={TextAlign.Centre}>
+              Login
+            </StyledText>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </LinearGradient>
+  )
+}
 
 const styles = StyleSheet.create({
   screenContainer: {
@@ -40,7 +56,7 @@ const styles = StyleSheet.create({
   },
   title: {
     width: '100%',
-    paddingHorizontal: 48,
+    paddingHorizontal: Padding.XXL,
     alignItems: 'center'
   }
 })

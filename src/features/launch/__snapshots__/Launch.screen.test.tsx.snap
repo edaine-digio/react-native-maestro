@@ -45,18 +45,53 @@ exports[`Launch Should render as expected 1`] = `
         }
       }
     >
-      <Text
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           {
-            "color": "#000",
-            "fontFamily": "Archivo-Thin",
-            "fontSize": 30,
-            "textAlign": "center",
+            "opacity": 1,
           }
         }
       >
-        This is the Launch screen page
-      </Text>
+        <Text
+          style={
+            {
+              "color": "#000",
+              "fontFamily": "Archivo-Thin",
+              "fontSize": 32,
+              "textAlign": "center",
+            }
+          }
+        >
+          Login
+        </Text>
+      </View>
     </View>
   </RCTSafeAreaView>
 </LinearGradient>

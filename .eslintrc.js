@@ -9,5 +9,13 @@ module.exports = {
   ],
   rules: {
     semi: 0
-  }
+  },
+  overrides: [
+    {
+      files: ['*.test.tsx', 'src/utils/testUtils.ts'],
+      rules: {
+        '@typescript-eslint/no-explicit-any': 0
+      }
+    }
+  ]
 }
