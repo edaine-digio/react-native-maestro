@@ -1,32 +1,36 @@
 import React from 'react'
-import { Launch } from './features/launch/Launch.screen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { RootStackParamList, RootStackRoutes } from './utils/navigationUtils'
-import { RootNavigation } from './navigation/RootNavigation'
+import { Provider as ReduxProvider } from 'react-redux'
+import { store } from 'src/store/store'
+import { RootStackParamList, RootStackRoutes } from 'src/utils/navigationUtils'
+import { Launch } from 'src/features/launch/Launch.screen'
+import { RootNavigation } from 'src/navigation/RootNavigation'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Launch">
-        <Stack.Screen
-          name={RootStackRoutes.Launch}
-          component={Launch}
-          options={() => ({
-            headerShown: false
-          })}
-        />
-        <Stack.Screen
-          name={RootStackRoutes.RootNavigation}
-          component={RootNavigation}
-          options={() => ({
-            headerShown: false
-          })}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ReduxProvider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Launch">
+          <Stack.Screen
+            name={RootStackRoutes.Launch}
+            component={Launch}
+            options={() => ({
+              headerShown: false
+            })}
+          />
+          <Stack.Screen
+            name={RootStackRoutes.RootNavigation}
+            component={RootNavigation}
+            options={() => ({
+              headerShown: false
+            })}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ReduxProvider>
   )
 }
 

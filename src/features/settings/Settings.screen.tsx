@@ -3,7 +3,9 @@ import { CompositeScreenProps } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { StyledText } from 'src/components/StyledText.component'
+import { clearName } from 'src/store/slices/userSlice'
 import {
   RootStackParamList,
   RootStackRoutes,
@@ -17,10 +19,15 @@ type SettingsScreenProps = CompositeScreenProps<
 >
 
 export const Settings = ({ navigation }: SettingsScreenProps) => {
+  const dispatch = useDispatch()
+
   return (
     <View>
       <TouchableOpacity
-        onPress={() => navigation.navigate(RootStackRoutes.Launch)}
+        onPress={() => {
+          dispatch(clearName())
+          navigation.navigate(RootStackRoutes.Launch)
+        }}
         style={styles.container}>
         <StyledText fontSize={24} fontWeight={400}>
           Log out

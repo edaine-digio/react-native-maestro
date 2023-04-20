@@ -2,10 +2,12 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React from 'react'
 import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
+import { useDispatch } from 'react-redux'
 import { Colours } from 'src/common/Colours'
 import { SvgImages } from 'src/common/Images'
 import { Font, Padding } from 'src/common/Sizes'
 import { StyledText, TextAlign } from 'src/components/StyledText.component'
+import { updateName } from 'src/store/slices/userSlice'
 import { RootStackParamList, RootStackRoutes } from 'src/utils/navigationUtils'
 
 type LaunchScreenProps = NativeStackScreenProps<
@@ -14,6 +16,8 @@ type LaunchScreenProps = NativeStackScreenProps<
 >
 
 export const Launch = ({ navigation }: LaunchScreenProps) => {
+  const dispatch = useDispatch()
+
   return (
     <LinearGradient
       style={styles.screenContainer}
@@ -24,7 +28,10 @@ export const Launch = ({ navigation }: LaunchScreenProps) => {
         </View>
         <View style={styles.title}>
           <TouchableOpacity
-            onPress={() => navigation.navigate(RootStackRoutes.RootNavigation)}>
+            onPress={() => {
+              dispatch(updateName('Olly'))
+              navigation.navigate(RootStackRoutes.RootNavigation)
+            }}>
             <StyledText
               fontSize={Font.XL}
               fontWeight={100}
