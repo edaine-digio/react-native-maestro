@@ -2,11 +2,11 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React from 'react'
 import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-import { useDispatch } from 'react-redux'
 import { Colours } from 'src/common/Colours'
 import { SvgImages } from 'src/common/Images'
 import { Font, Padding } from 'src/common/Sizes'
 import { StyledText, TextAlign } from 'src/components/StyledText.component'
+import { useAppDispatch } from 'src/hooks/dispatchHooks'
 import { updateName } from 'src/store/slices/userSlice'
 import { RootStackParamList, RootStackRoutes } from 'src/utils/navigationUtils'
 
@@ -16,7 +16,7 @@ type LaunchScreenProps = NativeStackScreenProps<
 >
 
 export const Launch = ({ navigation }: LaunchScreenProps) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   return (
     <LinearGradient
