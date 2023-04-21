@@ -12,9 +12,10 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.test.tsx', 'src/utils/testUtils.ts'],
+      files: ['*.test.tsx', 'src/utils/testUtils.tsx'],
       rules: {
-        '@typescript-eslint/no-explicit-any': 0
+        '@typescript-eslint/no-explicit-any': 0,
+        '@typescript-eslint/ban-types': 0
       }
     }
   ]
