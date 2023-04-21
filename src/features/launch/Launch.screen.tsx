@@ -1,6 +1,15 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import React from 'react'
-import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import React, { useRef, useState } from 'react'
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View
+} from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { Colours } from 'src/common/Colours'
 import { SvgImages } from 'src/common/Images'
@@ -16,31 +25,51 @@ type LaunchScreenProps = NativeStackScreenProps<
 >
 
 export const Launch = ({ navigation }: LaunchScreenProps) => {
+  const [username, setUsername] = useState<string>('')
   const dispatch = useAppDispatch()
+
+  const validUsername = username.length > 1
+
+  const handleLogin = () => {
+    Keyboard.dismiss()
+    dispatch(updateName(username))
+    setUsername('')
+    navigation.navigate(RootStackRoutes.RootNavigation)
+  }
 
   return (
     <LinearGradient
       style={styles.screenContainer}
       colors={[Colours.Peach, Colours.Sand]}>
-      <SafeAreaView style={styles.content}>
-        <View style={styles.svg}>
-          <SvgImages.DigioPrimary />
-        </View>
-        <View style={styles.title}>
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(updateName('Olly'))
-              navigation.navigate(RootStackRoutes.RootNavigation)
-            }}>
-            <StyledText
-              fontSize={Font.XL}
-              fontWeight={100}
-              alignment={TextAlign.Centre}>
-              Login
-            </StyledText>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <SafeAreaView style={styles.content}>
+          <View style={styles.svg}>
+            <SvgImages.DigioPrimary />
+          </View>
+          <KeyboardAvoidingView style={styles.login} behavior="padding">
+            <TextInput
+              testID="loginInput"
+              value={username}
+              style={styles.loginInput}
+              onChangeText={name => setUsername(name)}
+              placeholder="username"
+              autoCorrect={false}
+            />
+            <TouchableOpacity
+              disabled={!validUsername}
+              onPress={handleLogin}
+              style={styles.loginButton}>
+              <StyledText
+                fontSize={Font.XL}
+                fontWeight={100}
+                color={!validUsername ? Colours.MedGrey : Colours.Denim}
+                alignment={TextAlign.Centre}>
+                Login
+              </StyledText>
+            </TouchableOpacity>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
     </LinearGradient>
   )
 }
@@ -54,16 +83,33 @@ const styles = StyleSheet.create({
   content: {
     width: '100%',
     height: '100%',
-    justifyContent: 'space-around',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    justifyContent: 'space-between'
   },
   svg: {
     height: 80,
-    width: '100%'
+    width: '100%',
+    marginTop: Padding.XXL * 3,
+    marginBottom: Padding.XL
   },
-  title: {
+  login: {
     width: '100%',
     paddingHorizontal: Padding.XXL,
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: Padding.XXL * 3
+  },
+  loginButton: {
+    paddingBottom: Padding.XL
+  },
+  loginInput: {
+    width: 200,
+    padding: Padding.SM + Padding.XS,
+    color: Colours.Denim,
+    borderWidth: 2,
+    borderRadius: 20,
+    borderColor: Colours.Denim,
+    marginBottom: Padding.LG,
+    fontFamily: 'Archivo-Thin',
+    fontSize: Font.MD
   }
 })
