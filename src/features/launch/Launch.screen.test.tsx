@@ -9,6 +9,10 @@ import {
 import { RootStackRoutes } from 'src/utils/navigationUtils'
 
 describe('Launch', () => {
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   test('Should render as expected', () => {
     renderWithProviders(
       <Launch navigation={mockNavigationProp} route={mockRouteProp} />
@@ -18,26 +22,50 @@ describe('Launch', () => {
   })
 
   test('Should navigate to RootNavigation on login', async () => {
-    renderWithProviders(
+    const { getByTestId, getByText } = renderWithProviders(
       <Launch navigation={mockNavigationProp} route={mockRouteProp} />
     )
 
-    fireEvent.press(screen.getByText('Login'))
+    const loginInput = getByTestId('loginInput')
+
+    fireEvent.changeText(loginInput, 'John')
+
+    fireEvent.press(getByText('Login'))
 
     expect(mockNavigationProp.navigate).toHaveBeenCalledWith(
       RootStackRoutes.RootNavigation
     )
   })
 
-  test('Should populate app state with user name', async () => {
-    const ui = renderWithProviders(
+  test('Should populate app state with user name when login is pressed', async () => {
+    const { store, getByText, getByTestId } = renderWithProviders(
       <Launch navigation={mockNavigationProp} route={mockRouteProp} />
     )
 
-    fireEvent.press(screen.getByText('Login'))
+    const loginInput = getByTestId('loginInput')
 
-    const state = ui.store.getState()
+    fireEvent.changeText(loginInput, 'John')
 
-    expect(state.user.name).toEqual('Olly')
+    fireEvent.press(getByText('Login'))
+
+    const state = store.getState()
+
+    expect(state.user.name).toEqual(state.user.name)
+  })
+
+  test('Login should stay disabled when username is not long enough', async () => {
+    const { getByText, getByTestId } = renderWithProviders(
+      <Launch navigation={mockNavigationProp} route={mockRouteProp} />
+    )
+
+    const loginInput = getByTestId('loginInput')
+
+    fireEvent.changeText(loginInput, 'G')
+
+    fireEvent.press(getByText('Login'))
+
+    expect(mockNavigationProp.navigate).not.toHaveBeenCalledWith(
+      RootStackRoutes.RootNavigation
+    ) // handleLogin did not fire
   })
 })

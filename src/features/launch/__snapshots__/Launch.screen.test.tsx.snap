@@ -17,11 +17,29 @@ exports[`Launch Should render as expected 1`] = `
   }
 >
   <RCTSafeAreaView
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       {
         "flexDirection": "column",
         "height": "100%",
-        "justifyContent": "space-around",
+        "justifyContent": "space-between",
         "width": "100%",
       }
     }
@@ -30,6 +48,8 @@ exports[`Launch Should render as expected 1`] = `
       style={
         {
           "height": 80,
+          "marginBottom": 32,
+          "marginTop": 144,
           "width": "100%",
         }
       }
@@ -37,20 +57,46 @@ exports[`Launch Should render as expected 1`] = `
       <DigioPrimary />
     </View>
     <View
+      onLayout={[Function]}
       style={
-        {
-          "alignItems": "center",
-          "paddingHorizontal": 48,
-          "width": "100%",
-        }
+        [
+          {
+            "alignItems": "center",
+            "marginBottom": 144,
+            "paddingHorizontal": 48,
+            "width": "100%",
+          },
+          {
+            "paddingBottom": 0,
+          },
+        ]
       }
     >
+      <TextInput
+        autoCorrect={false}
+        onChangeText={[Function]}
+        placeholder="username"
+        style={
+          {
+            "borderColor": "#243746",
+            "borderRadius": 20,
+            "borderWidth": 2,
+            "color": "#243746",
+            "fontFamily": "Archivo-Thin",
+            "fontSize": 20,
+            "marginBottom": 24,
+            "padding": 12,
+            "width": 200,
+          }
+        }
+        testID="loginInput"
+      />
       <View
         accessibilityState={
           {
             "busy": undefined,
             "checked": undefined,
-            "disabled": undefined,
+            "disabled": true,
             "expanded": undefined,
             "selected": undefined,
           }
@@ -76,13 +122,14 @@ exports[`Launch Should render as expected 1`] = `
         style={
           {
             "opacity": 1,
+            "paddingBottom": 32,
           }
         }
       >
         <Text
           style={
             {
-              "color": "#000",
+              "color": "#8A8A8A",
               "fontFamily": "Archivo-Thin",
               "fontSize": 32,
               "textAlign": "center",
