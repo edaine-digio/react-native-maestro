@@ -2,45 +2,43 @@
 
 exports[`Launch Should render as expected 1`] = `
 <LinearGradient
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessible={true}
   colors={
     [
       "#FC9468",
       "#FFD1AD",
     ]
   }
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
     {
-      "alignItems": "center",
       "flex": 1,
-      "justifyContent": "center",
     }
   }
 >
   <RCTSafeAreaView
-    accessibilityState={
-      {
-        "busy": undefined,
-        "checked": undefined,
-        "disabled": undefined,
-        "expanded": undefined,
-        "selected": undefined,
-      }
-    }
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
       {
+        "alignItems": "center",
+        "flex": 1,
         "flexDirection": "column",
-        "height": "100%",
         "justifyContent": "space-between",
-        "width": "100%",
       }
     }
   >
@@ -73,9 +71,11 @@ exports[`Launch Should render as expected 1`] = `
       }
     >
       <TextInput
+        autoCapitalize="none"
         autoCorrect={false}
         onChangeText={[Function]}
         placeholder="username"
+        secureTextEntry={false}
         style={
           {
             "borderColor": "#243746",
@@ -84,12 +84,35 @@ exports[`Launch Should render as expected 1`] = `
             "color": "#243746",
             "fontFamily": "Archivo-Thin",
             "fontSize": 20,
-            "marginBottom": 24,
+            "marginBottom": 16,
             "padding": 12,
             "width": 200,
           }
         }
         testID="loginInput"
+        value=""
+      />
+      <TextInput
+        autoCapitalize="none"
+        autoCorrect={false}
+        onChangeText={[Function]}
+        placeholder="password"
+        secureTextEntry={true}
+        style={
+          {
+            "borderColor": "#243746",
+            "borderRadius": 20,
+            "borderWidth": 2,
+            "color": "#243746",
+            "fontFamily": "Archivo-Thin",
+            "fontSize": 20,
+            "marginBottom": 16,
+            "padding": 12,
+            "width": 200,
+          }
+        }
+        testID="passwordInput"
+        value=""
       />
       <View
         accessibilityState={
@@ -121,8 +144,9 @@ exports[`Launch Should render as expected 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
+            "marginBottom": 16,
             "opacity": 1,
-            "paddingBottom": 32,
+            "padding": 8,
           }
         }
       >
@@ -137,6 +161,55 @@ exports[`Launch Should render as expected 1`] = `
           }
         >
           Login
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "marginBottom": 16,
+            "opacity": 1,
+            "padding": 8,
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "color": "#243746",
+              "fontFamily": "Archivo-Thin",
+              "fontSize": 24,
+              "textAlign": "center",
+            }
+          }
+        >
+          Register
         </Text>
       </View>
     </View>

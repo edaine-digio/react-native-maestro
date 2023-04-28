@@ -4,5 +4,9 @@ export const Colours = {
   Sand: '#FFD1AD',
   Peach: '#FC9468',
   Denim: '#243746',
-  MedGrey: '#8A8A8A'
+  MedGrey: '#8A8A8A',
+  Butter: '#FFC844',
+  Flamingo: '#FF8189',
+  Spring: '#00CE7C',
+  Violet: '#7E57C5'
 }
