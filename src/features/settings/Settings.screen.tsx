@@ -4,8 +4,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { StyledText } from 'src/components/StyledText.component'
-import { useAppDispatch } from 'src/hooks/dispatchHooks'
-import { clearName } from 'src/store/slices/userSlice'
+import { useAppDispatch } from 'src/hooks/useAppDispatch'
+import { clearUser } from 'src/store/slices/userSlice'
 import {
   RootStackParamList,
   RootStackRoutes,
@@ -25,7 +25,7 @@ export const Settings = ({ navigation }: SettingsScreenProps) => {
     <View>
       <TouchableOpacity
         onPress={() => {
-          dispatch(clearName())
+          dispatch(clearUser())
           navigation.navigate(RootStackRoutes.Launch)
         }}
         style={styles.container}>

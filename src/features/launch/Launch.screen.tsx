@@ -1,22 +1,24 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
+import { KeyboardAvoidingView } from 'react-native'
 import {
   Keyboard,
-  KeyboardAvoidingView,
   SafeAreaView,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
+// import { storage } from 'src/App'
 import { Colours } from 'src/common/Colours'
 import { SvgImages } from 'src/common/Images'
 import { Font, Padding } from 'src/common/Sizes'
 import { StyledText, TextAlign } from 'src/components/StyledText.component'
-import { useAppDispatch } from 'src/hooks/dispatchHooks'
-import { updateName } from 'src/store/slices/userSlice'
+import { FormInput } from 'src/features/launch/components/FormInput.component'
+import { useAppDispatch } from 'src/hooks/useAppDispatch'
+import { useLogin } from 'src/hooks/useLogin'
+import { updateUser } from 'src/store/slices/userSlice'
 import { RootStackParamList, RootStackRoutes } from 'src/utils/navigationUtils'
 
 type LaunchScreenProps = NativeStackScreenProps<
@@ -26,69 +28,104 @@ type LaunchScreenProps = NativeStackScreenProps<
 
 export const Launch = ({ navigation }: LaunchScreenProps) => {
   const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const { login } = useLogin()
   const dispatch = useAppDispatch()
 
-  const validUsername = username.length > 1
+  const validInput = username.length > 1 && password.length > 1
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     Keyboard.dismiss()
-    dispatch(updateName(username))
-    setUsername('')
-    navigation.navigate(RootStackRoutes.RootNavigation)
+
+    const res = await login({ email: username, password: password })
+
+    if (res?.ok) {
+      const user = await res.json()
+      dispatch(
+        updateUser({
+          firstName: user.first_name,
+          lastName: user.last_name,
+          email: user.email,
+          token: user.token
+        })
+      )
+      // storage.set('accessToken', user.token)
+      navigation.navigate(RootStackRoutes.RootNavigation)
+    } else {
+      console.log('ERROR', res?.status)
+    }
+  }
+
+  const handleSignUp = () => {
+    navigation.navigate(RootStackRoutes.ReigsterModal)
   }
 
   return (
-    <LinearGradient
-      style={styles.screenContainer}
-      colors={[Colours.Peach, Colours.Sand]}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
+      style={styles.screenContainer}>
+      <LinearGradient
+        style={styles.screenContainer}
+        colors={[Colours.Peach, Colours.Sand]}>
         <SafeAreaView style={styles.content}>
           <View style={styles.svg}>
             <SvgImages.DigioPrimary />
           </View>
-          <KeyboardAvoidingView style={styles.login} behavior="padding">
-            <TextInput
+          <KeyboardAvoidingView behavior="padding" style={styles.login}>
+            <FormInput
               testID="loginInput"
               value={username}
-              style={styles.loginInput}
-              onChangeText={name => setUsername(name)}
+              onChangeText={setUsername}
               placeholder="username"
-              autoCorrect={false}
+            />
+            <FormInput
+              testID="passwordInput"
+              value={password}
+              onChangeText={setPassword}
+              placeholder="password"
+              secure
             />
             <TouchableOpacity
-              disabled={!validUsername}
+              disabled={!validInput}
               onPress={handleLogin}
-              style={styles.loginButton}>
+              style={styles.button}>
               <StyledText
                 fontSize={Font.XL}
                 fontWeight={100}
-                color={!validUsername ? Colours.MedGrey : Colours.Denim}
+                color={!validInput ? Colours.MedGrey : Colours.Denim}
                 alignment={TextAlign.Centre}>
                 Login
               </StyledText>
             </TouchableOpacity>
+            <TouchableOpacity onPress={handleSignUp} style={styles.button}>
+              <StyledText
+                fontSize={Font.LG}
+                fontWeight={100}
+                color={Colours.Denim}
+                alignment={TextAlign.Centre}>
+                Register
+              </StyledText>
+            </TouchableOpacity>
           </KeyboardAvoidingView>
         </SafeAreaView>
-      </TouchableWithoutFeedback>
-    </LinearGradient>
+      </LinearGradient>
+    </TouchableWithoutFeedback>
   )
 }
 
 const styles = StyleSheet.create({
   screenContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flex: 1
   },
   content: {
-    width: '100%',
-    height: '100%',
+    flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   svg: {
-    height: 80,
     width: '100%',
+    height: 80,
     marginTop: Padding.XXL * 3,
     marginBottom: Padding.XL
   },
@@ -98,17 +135,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: Padding.XXL * 3
   },
-  loginButton: {
-    paddingBottom: Padding.XL
+  button: {
+    marginBottom: Padding.MD,
+    padding: Padding.SM
   },
-  loginInput: {
+  input: {
     width: 200,
     padding: Padding.SM + Padding.XS,
     color: Colours.Denim,
     borderWidth: 2,
     borderRadius: 20,
     borderColor: Colours.Denim,
-    marginBottom: Padding.LG,
+    marginBottom: Padding.MD,
     fontFamily: 'Archivo-Thin',
     fontSize: Font.MD
   }

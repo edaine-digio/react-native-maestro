@@ -6,3 +6,11 @@ jest.mock('src/common/Images', () => ({
 }))
 
 jest.mock('react-native-linear-gradient', () => 'LinearGradient')
+
+jest.mock('react-native-config', () => {
+  return {
+    default: jest.fn(() => {
+      BASE_URL = 'http://localhost:4001'
+    })
+  }
+})

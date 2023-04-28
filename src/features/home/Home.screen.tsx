@@ -6,12 +6,12 @@ import { StyledText } from 'src/components/StyledText.component'
 import { RootState } from 'src/store/store'
 
 export const Home = () => {
-  const userName = useSelector((state: RootState) => state.user.name)
+  const firstName = useSelector((state: RootState) => state.user.firstName)
 
   return (
     <View style={styles.container}>
       <StyledText fontSize={Font.XL} fontWeight={300}>
-        Welcome, {userName}
+        Welcome, {firstName}
       </StyledText>
     </View>
   )

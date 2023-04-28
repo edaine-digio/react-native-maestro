@@ -1,11 +1,13 @@
 export type RootStackParamList = {
   Launch: undefined
   RootNavigation: undefined
+  RegisterModal: undefined
 }
 
 export enum RootStackRoutes {
   Launch = 'Launch',
-  RootNavigation = 'RootNavigation'
+  RootNavigation = 'RootNavigation',
+  ReigsterModal = 'RegisterModal'
 }
 
 export type RootTabParamList = {
