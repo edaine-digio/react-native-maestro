@@ -10,7 +10,6 @@ import {
   View
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-// import { storage } from 'src/App'
 import { Colours } from 'src/common/Colours'
 import { SvgImages } from 'src/common/Images'
 import { Font, Padding } from 'src/common/Sizes'
@@ -18,6 +17,7 @@ import { StyledText, TextAlign } from 'src/components/StyledText.component'
 import { FormInput } from 'src/features/launch/components/FormInput.component'
 import { useAppDispatch } from 'src/hooks/useAppDispatch'
 import { useLogin } from 'src/hooks/useLogin'
+import { storage } from 'src/store/deviceStore'
 import { updateUser } from 'src/store/slices/userSlice'
 import { RootStackParamList, RootStackRoutes } from 'src/utils/navigationUtils'
 
@@ -49,7 +49,7 @@ export const Launch = ({ navigation }: LaunchScreenProps) => {
           token: user.token
         })
       )
-      // storage.set('accessToken', user.token)
+      storage.set('accessToken', user.token)
       navigation.navigate(RootStackRoutes.RootNavigation)
     } else {
       console.log('ERROR', res?.status)

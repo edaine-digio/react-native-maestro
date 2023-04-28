@@ -6,12 +6,9 @@ import { RootStackParamList, RootStackRoutes } from 'src/utils/navigationUtils'
 import { Launch } from 'src/features/launch/Launch.screen'
 import { RootNavigation } from 'src/navigation/RootNavigation'
 import { Register } from 'src/features/launch/Register.modal'
-// import { MMKV } from 'react-native-mmkv'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
-
-// export const storage = new MMKV()
 
 const App = () => {
   return (
