@@ -1,6 +1,4 @@
-import Config from 'react-native-config'
-
-const { BASE_URL } = Config
+import { BASE_URL } from 'src/common/Urls'
 
 interface LoginProps {
   email: string

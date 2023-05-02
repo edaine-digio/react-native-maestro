@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, screen } from '@testing-library/react-native'
+import { fireEvent, screen, waitFor } from '@testing-library/react-native'
 import {
   mockNavigationProp,
   mockRouteProp,
@@ -21,46 +21,45 @@ describe('Launch', () => {
     expect(screen.toJSON()).toMatchSnapshot()
   })
 
-  // test('Should navigate to RootNavigation on login', async () => {
-  //   const { getByTestId, getByText } = renderWithProviders(
-  //     <Launch navigation={mockNavigationProp} route={mockRouteProp} />
-  //   )
+  test('login() should update state with returned body, and subsequently navigate to the guts of the app', async () => {
+    fetchMock.resetMocks()
 
-  //   const loginInput = getByTestId('loginInput')
-  //   const passwordInput = getByTestId('passwordInput')
+    fetchMock.mockResponse(
+      JSON.stringify({
+        first_name: 'John',
+        last_name: 'Citizen',
+        email: 'john@example.com',
+        token: 'token'
+      })
+    )
 
-  //   fetchMock.mockResponse(req =>
-  //     req.url === 'http://10.0.2.2:4001/users/login'
-  //       ? login({ email: 'test@example.com', password: 'password' }).then(
-  //           res => 'ok'
-  //         )
-  //       : Promise.reject(new Error('bad url'))
-  //   )
-
-  //   fireEvent.changeText(loginInput, 'John')
-  //   fireEvent.changeText(passwordInput, 'password')
-
-  //   fireEvent.press(getByText('Login'))
-
-  //   expect(mockNavigationProp.navigate).toHaveBeenCalledWith(
-  //     RootStackRoutes.RootNavigation
-  //   )
-  // })
-
-  test('Should populate app state with user name when login is pressed', async () => {
-    const { store, getByText, getByTestId } = renderWithProviders(
+    const { store, getByTestId, getByText } = renderWithProviders(
       <Launch navigation={mockNavigationProp} route={mockRouteProp} />
     )
 
-    const loginInput = getByTestId('loginInput')
-
-    fireEvent.changeText(loginInput, 'John')
+    fireEvent.changeText(getByTestId('loginInput'), 'john@example.com')
+    fireEvent.changeText(getByTestId('passwordInput'), 'password')
 
     fireEvent.press(getByText('Login'))
 
-    const state = store.getState()
+    await waitFor(() => {
+      const state = store.getState()
 
-    expect(state.user.firstName).toEqual(state.user.firstName)
+      expect(state.user).toEqual({
+        firstName: 'John',
+        lastName: 'Citizen',
+        email: 'john@example.com',
+        token: 'token',
+        error: false,
+        loading: false
+      })
+    })
+
+    await waitFor(() => {
+      expect(mockNavigationProp.navigate).toHaveBeenCalledWith(
+        RootStackRoutes.RootNavigation
+      )
+    })
   })
 
   test('Login should stay disabled when username is not long enough', async () => {
