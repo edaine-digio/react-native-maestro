@@ -1,13 +1,23 @@
 import {
+  AnyAction,
   PreloadedState,
+  Reducer,
   combineReducers,
   configureStore
 } from '@reduxjs/toolkit'
 import userSlice from 'src/store/slices/userSlice'
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   user: userSlice
 })
+
+const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
+  if (action.type === 'user/logout') {
+    state = undefined
+  }
+
+  return appReducer(state, action)
+}
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   return configureStore({
