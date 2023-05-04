@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
+import { Formik } from 'formik'
+import React from 'react'
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -15,26 +16,45 @@ import { Font, Padding } from 'src/common/Sizes'
 import { StyledText, TextAlign } from 'src/components/StyledText.component'
 import { FormInput } from 'src/features/launch/components/FormInput.component'
 import { useRegister } from 'src/hooks/useRegister'
+import { object, string } from 'yup'
+
+interface FormProps {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+}
 
 export const Register = () => {
-  const [firstName, setFirstName] = useState<string>('')
-  const [lastName, setLastName] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [passwordReenter, setPasswordReenter] = useState<string>('')
-
   const { register } = useRegister()
-
   const navigation = useNavigation()
 
-  const handleRegister = async () => {
+  const registerSchema = object({
+    firstName: string()
+      .required('Required')
+      .min(2, () => 'Too short!')
+      .max(16, () => 'Too long!'),
+    lastName: string()
+      .required('Required')
+      .min(2, () => 'Too short!')
+      .max(16, () => 'Too long!'),
+    email: string().required('Required').email('Invalid email'),
+    password: string()
+      .min(8, () => 'Too short!')
+      .required('Required'),
+    passwordReenter: string()
+      .min(8, () => 'Too short!')
+      .required('Required')
+  })
+
+  const handleRegister = async (values: FormProps) => {
     Keyboard.dismiss()
 
     const res = await register({
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      password: values.password
     })
 
     if (res?.ok) {
@@ -63,47 +83,125 @@ export const Register = () => {
               Register
             </StyledText>
           </View>
-          <FormInput
-            testID="registerFirstName"
-            value={firstName}
-            onChangeText={setFirstName}
-            placeholder="first name"
-          />
-          <FormInput
-            testID="registerLastName"
-            value={lastName}
-            onChangeText={setLastName}
-            placeholder="last name"
-          />
-          <FormInput
-            testID="registerEmail"
-            value={email}
-            onChangeText={setEmail}
-            placeholder="email"
-          />
-          <FormInput
-            testID="registerPassword"
-            value={password}
-            onChangeText={setPassword}
-            placeholder="password"
-            secure
-          />
-          <FormInput
-            testID="registerPasswordReenter"
-            value={passwordReenter}
-            onChangeText={setPasswordReenter}
-            placeholder="re-enter password"
-            secure
-          />
-          <TouchableOpacity onPress={handleRegister} style={styles.button}>
-            <StyledText
-              fontSize={Font.LG}
-              fontWeight={100}
-              color={Colours.Denim}
-              alignment={TextAlign.Centre}>
-              Sign up
-            </StyledText>
-          </TouchableOpacity>
+          <Formik
+            initialValues={{
+              firstName: '',
+              lastName: '',
+              email: '',
+              password: '',
+              passwordReenter: ''
+            }}
+            validationSchema={registerSchema}
+            onSubmit={values => handleRegister(values)}>
+            {({ handleChange, handleSubmit, values, errors, isValid }) => (
+              <View>
+                <View style={styles.inputContainer}>
+                  <View style={styles.formError}>
+                    {errors.firstName && (
+                      <StyledText
+                        fontSize={Font.SM}
+                        fontWeight={500}
+                        color={Colours.Flamingo}>
+                        {errors.firstName}
+                      </StyledText>
+                    )}
+                  </View>
+                  <FormInput
+                    testID="registerFirstName"
+                    value={values.firstName}
+                    onChangeText={handleChange('firstName')}
+                    placeholder="first name"
+                  />
+                </View>
+                <View style={styles.inputContainer}>
+                  <View style={styles.formError}>
+                    {errors.lastName && (
+                      <StyledText
+                        fontSize={Font.SM}
+                        fontWeight={500}
+                        color={Colours.Flamingo}>
+                        {errors.lastName}
+                      </StyledText>
+                    )}
+                  </View>
+                  <FormInput
+                    testID="registerLastName"
+                    value={values.lastName}
+                    onChangeText={handleChange('lastName')}
+                    placeholder="last name"
+                  />
+                </View>
+                <View style={styles.inputContainer}>
+                  <View style={styles.formError}>
+                    {errors.email && (
+                      <StyledText
+                        fontSize={Font.SM}
+                        fontWeight={500}
+                        color={Colours.Flamingo}>
+                        {errors.email}
+                      </StyledText>
+                    )}
+                  </View>
+                  <FormInput
+                    testID="registerEmail"
+                    value={values.email}
+                    onChangeText={handleChange('email')}
+                    placeholder="email"
+                  />
+                </View>
+                <View style={styles.inputContainer}>
+                  <View style={styles.formError}>
+                    {errors.password && (
+                      <StyledText
+                        fontSize={Font.SM}
+                        fontWeight={500}
+                        color={Colours.Flamingo}>
+                        {errors.password}
+                      </StyledText>
+                    )}
+                  </View>
+                  <FormInput
+                    testID="passwordInput"
+                    value={values.password}
+                    onChangeText={handleChange('password')}
+                    placeholder="password"
+                    secure
+                  />
+                </View>
+                <View style={styles.inputContainer}>
+                  <View style={styles.formError}>
+                    {values.password !== values.passwordReenter && (
+                      <StyledText
+                        fontSize={Font.SM}
+                        fontWeight={500}
+                        color={Colours.Flamingo}>
+                        {'Passwords don’t match'}
+                      </StyledText>
+                    )}
+                  </View>
+                  <FormInput
+                    testID="registerPasswordReenter"
+                    value={values.passwordReenter}
+                    onChangeText={handleChange('passwordReenter')}
+                    placeholder="re-enter password"
+                    secure
+                  />
+                </View>
+                <TouchableOpacity
+                  onPress={() => handleSubmit()}
+                  disabled={!isValid}
+                  style={styles.button}>
+                  <StyledText
+                    fontSize={Font.LG}
+                    fontWeight={100}
+                    color={Colours.Denim}
+                    alignment={TextAlign.Centre}>
+                    Sign up
+                  </StyledText>
+                </TouchableOpacity>
+              </View>
+            )}
+          </Formik>
           <TouchableOpacity onPress={navigation.goBack} style={styles.button}>
             <StyledText
               fontSize={Font.MD}
@@ -136,8 +234,15 @@ const styles = StyleSheet.create({
     marginBottom: Padding.LG
   },
   formContainer: {
-    alignItems: 'center',
-    marginTop: Padding.LG
+    alignItems: 'center'
+  },
+  formError: {
+    margin: Padding.SM,
+    height: 20
+  },
+  inputContainer: {
+    alignItems: 'flex-start',
+    marginTop: -Padding.SM
   },
   button: {
     marginBottom: Padding.MD,

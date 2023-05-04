@@ -19,7 +19,7 @@ const initialState: UserState = {
 }
 
 const userSlice = createSlice({
-  name: 'userList',
+  name: 'user',
   initialState: initialState,
   reducers: {
     updateUser: (
@@ -31,17 +31,12 @@ const userSlice = createSlice({
       state.email = action.payload.email
       state.token = action.payload.token
     },
-    clearUser: state => {
-      state.firstName = undefined
-      state.lastName = undefined
-      state.email = undefined
-      state.token = undefined
-      state.loading = false
-      state.error = false
+    logout: () => {
+      // no op - clears state from reducer
     }
   }
 })
 
-export const { updateUser, clearUser } = userSlice.actions
+export const { updateUser, logout } = userSlice.actions
 
 export default userSlice.reducer

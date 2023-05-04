@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import React, { useState } from 'react'
+import { Formik } from 'formik'
+import React from 'react'
 import { KeyboardAvoidingView } from 'react-native'
 import {
   Keyboard,
@@ -20,6 +21,7 @@ import { useLogin } from 'src/hooks/useLogin'
 import { storage } from 'src/store/deviceStore'
 import { updateUser } from 'src/store/slices/userSlice'
 import { RootStackParamList, RootStackRoutes } from 'src/utils/navigationUtils'
+import { object, string } from 'yup'
 
 type LaunchScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -27,17 +29,18 @@ type LaunchScreenProps = NativeStackScreenProps<
 >
 
 export const Launch = ({ navigation }: LaunchScreenProps) => {
-  const [username, setUsername] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
   const { login } = useLogin()
   const dispatch = useAppDispatch()
 
-  const validInput = username.length > 1 && password.length > 1
+  const loginSchema = object({
+    email: string().required('Required').email('Invalid email'),
+    password: string()
+  })
 
-  const handleLogin = async () => {
+  const handleLogin = async (email: string, password: string) => {
     Keyboard.dismiss()
 
-    const res = await login({ email: username, password: password })
+    const res = await login({ email: email, password: password })
 
     if (res?.ok) {
       const user = await res.json()
@@ -49,6 +52,7 @@ export const Launch = ({ navigation }: LaunchScreenProps) => {
           token: user.token
         })
       )
+
       storage.set('accessToken', user.token)
       navigation.navigate(RootStackRoutes.RootNavigation)
     } else {
@@ -72,31 +76,64 @@ export const Launch = ({ navigation }: LaunchScreenProps) => {
             <SvgImages.DigioPrimary />
           </View>
           <KeyboardAvoidingView behavior="padding" style={styles.login}>
-            <FormInput
-              testID="loginInput"
-              value={username}
-              onChangeText={setUsername}
-              placeholder="username"
-            />
-            <FormInput
-              testID="passwordInput"
-              value={password}
-              onChangeText={setPassword}
-              placeholder="password"
-              secure
-            />
-            <TouchableOpacity
-              disabled={!validInput}
-              onPress={handleLogin}
-              style={styles.button}>
-              <StyledText
-                fontSize={Font.XL}
-                fontWeight={100}
-                color={!validInput ? Colours.MedGrey : Colours.Denim}
-                alignment={TextAlign.Centre}>
-                Login
-              </StyledText>
-            </TouchableOpacity>
+            <Formik
+              initialValues={{ email: '', password: '' }}
+              validationSchema={loginSchema}
+              onSubmit={values => handleLogin(values.email, values.password)}>
+              {({ handleChange, handleSubmit, values, errors, isValid }) => (
+                <View>
+                  <View style={styles.inputContainer}>
+                    {errors.email && (
+                      <View style={styles.formError}>
+                        <StyledText
+                          fontSize={Font.SM}
+                          fontWeight={500}
+                          color={Colours.Flamingo}>
+                          {errors.email}
+                        </StyledText>
+                      </View>
+                    )}
+                    <FormInput
+                      testID="loginInput"
+                      value={values.email}
+                      onChangeText={handleChange('email')}
+                      placeholder="username"
+                    />
+                  </View>
+                  <View style={styles.inputContainer}>
+                    {errors.password && (
+                      <View style={styles.formError}>
+                        <StyledText
+                          fontSize={Font.SM}
+                          fontWeight={300}
+                          color={Colours.Flamingo}>
+                          {errors.password}
+                        </StyledText>
+                      </View>
+                    )}
+                    <FormInput
+                      testID="passwordInput"
+                      value={values.password}
+                      onChangeText={handleChange('password')}
+                      placeholder="password"
+                      secure
+                    />
+                  </View>
+                  <TouchableOpacity
+                    disabled={!isValid}
+                    onPress={() => handleSubmit()}
+                    style={styles.button}>
+                    <StyledText
+                      fontSize={Font.XL}
+                      fontWeight={100}
+                      color={!isValid ? Colours.MedGrey : Colours.Denim}
+                      alignment={TextAlign.Centre}>
+                      Login
+                    </StyledText>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </Formik>
             <TouchableOpacity onPress={handleSignUp} style={styles.button}>
               <StyledText
                 fontSize={Font.LG}
@@ -129,6 +166,12 @@ const styles = StyleSheet.create({
     marginTop: Padding.XXL * 3,
     marginBottom: Padding.XL
   },
+  formError: {
+    margin: Padding.SM
+  },
+  inputContainer: {
+    alignItems: 'flex-start'
+  },
   login: {
     width: '100%',
     paddingHorizontal: Padding.XXL,
@@ -137,7 +180,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginBottom: Padding.MD,
-    padding: Padding.SM
+    padding: Padding.SM,
+    alignSelf: 'center'
   },
   input: {
     width: 200,

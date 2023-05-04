@@ -17,20 +17,19 @@ export const FormInput = ({
   placeholder,
   secure = false,
   onChangeText
-}: FormInputProps) => {
-  return (
-    <TextInput
-      testID={testID}
-      value={value}
-      style={styles.input}
-      onChangeText={input => onChangeText(input)}
-      placeholder={placeholder}
-      autoCorrect={false}
-      autoCapitalize="none"
-      secureTextEntry={secure}
-    />
-  )
-}
+}: FormInputProps) => (
+  <TextInput
+    testID={testID}
+    value={value}
+    style={styles.input}
+    onChangeText={input => onChangeText(input)}
+    placeholder={placeholder}
+    placeholderTextColor={Colours.MedGrey}
+    autoCorrect={false}
+    autoCapitalize="none"
+    secureTextEntry={secure}
+  />
+)
 
 const styles = StyleSheet.create({
   input: {
