@@ -3,7 +3,7 @@ import { CompositeScreenProps } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { StyledText } from 'src/components/StyledText.component'
+import { StyledText } from 'src/components/StyledText/StyledText.component'
 import { useAppDispatch } from 'src/hooks/useAppDispatch'
 import { logout } from 'src/store/slices/userSlice'
 import {
