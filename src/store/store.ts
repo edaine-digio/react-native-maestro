@@ -5,10 +5,12 @@ import {
   combineReducers,
   configureStore
 } from '@reduxjs/toolkit'
+import modalSlice from 'src/store/slices/modalSlice'
 import userSlice from 'src/store/slices/userSlice'
 
 const appReducer = combineReducers({
-  user: userSlice
+  user: userSlice,
+  modal: modalSlice
 })
 
 const rootReducer: Reducer = (state: RootState, action: AnyAction) => {

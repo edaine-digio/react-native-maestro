@@ -14,7 +14,10 @@ import LinearGradient from 'react-native-linear-gradient'
 import { Colours } from 'src/common/Colours'
 import { SvgImages } from 'src/common/Images'
 import { Font, Padding } from 'src/common/Sizes'
-import { StyledText, TextAlign } from 'src/components/StyledText.component'
+import {
+  StyledText,
+  TextAlign
+} from 'src/components/StyledText/StyledText.component'
 import { FormInput } from 'src/features/launch/components/FormInput.component'
 import { useAppDispatch } from 'src/hooks/useAppDispatch'
 import { useLogin } from 'src/hooks/useLogin'

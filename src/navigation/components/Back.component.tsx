@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { SvgImages } from 'src/common/Images'
-import { StyledText } from 'src/components/StyledText.component'
+import { StyledText } from 'src/components/StyledText/StyledText.component'
 
 interface BackProps {
   title: string

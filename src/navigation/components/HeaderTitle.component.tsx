@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyledText } from 'src/components/StyledText.component'
+import { StyledText } from 'src/components/StyledText/StyledText.component'
 
 interface HeaderTitleProps {
   title: string
