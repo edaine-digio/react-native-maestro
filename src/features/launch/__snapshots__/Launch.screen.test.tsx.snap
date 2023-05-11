@@ -16,6 +16,7 @@ exports[`Launch Should render as expected 1`] = `
     [
       "#FC9468",
       "#FFD1AD",
+      "#F5EDE0",
     ]
   }
   focusable={true}
@@ -176,6 +177,7 @@ exports[`Launch Should render as expected 1`] = `
                 "color": "#243746",
                 "fontFamily": "Archivo-Thin",
                 "fontSize": 32,
+                "includeFontPadding": false,
                 "textAlign": "center",
               }
             }
@@ -227,6 +229,7 @@ exports[`Launch Should render as expected 1`] = `
               "color": "#243746",
               "fontFamily": "Archivo-Thin",
               "fontSize": 24,
+              "includeFontPadding": false,
               "textAlign": "center",
             }
           }

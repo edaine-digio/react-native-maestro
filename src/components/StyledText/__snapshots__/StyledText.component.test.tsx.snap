@@ -7,6 +7,7 @@ exports[`StyledText Should render correctly with custom values 1`] = `
       "color": "#FFD1AD",
       "fontFamily": "Archivo-ExtraBold",
       "fontSize": 40,
+      "includeFontPadding": false,
       "textAlign": "right",
     }
   }
@@ -22,6 +23,7 @@ exports[`StyledText Should render correctly with default values 1`] = `
       "color": "#000",
       "fontFamily": "Archivo-Regular",
       "fontSize": 18,
+      "includeFontPadding": false,
       "textAlign": "right",
     }
   }

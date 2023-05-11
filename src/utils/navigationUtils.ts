@@ -1,3 +1,5 @@
+import { NavigatorScreenParams } from '@react-navigation/native'
+
 export type RootStackParamList = {
   Launch: undefined
   RegisterModal: undefined
@@ -14,10 +16,12 @@ export enum RootStackRoutes {
 
 export type TabParamList = {
   Home: undefined
-  Settings: undefined
+  Profile: undefined
+  Settings: NavigatorScreenParams<RootStackParamList>
 }
 
 export enum TabRoutes {
   Home = 'Home',
+  Profile = 'Profile',
   Settings = 'Settings'
 }

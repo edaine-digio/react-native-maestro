@@ -78,7 +78,7 @@ export const RootNav = () => {
               name={RootStackRoutes.ReigsterModal}
               component={Register}
               options={() => ({
-                presentation: 'modal'
+                ...TransitionPresets.ModalTransition
               })}
             />
           </>
