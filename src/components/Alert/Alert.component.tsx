@@ -2,7 +2,10 @@ import React from 'react'
 import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Colours } from 'src/common/Colours'
 import { Font, Padding } from 'src/common/Sizes'
-import { StyledText } from 'src/components/StyledText/StyledText.component'
+import {
+  StyledText,
+  TextAlign
+} from 'src/components/StyledText/StyledText.component'
 import { useAppDispatch } from 'src/hooks/useAppDispatch'
 import { hideModal } from 'src/store/slices/modalSlice'
 
@@ -30,7 +33,10 @@ export const Alert = ({ show, title, message, theme }: AlertProps) => {
             <StyledText fontSize={Font.LG} fontWeight={400}>
               {title}
             </StyledText>
-            <StyledText fontSize={Font.MD} fontWeight={300}>
+            <StyledText
+              fontSize={Font.MD}
+              fontWeight={300}
+              alignment={TextAlign.Centre}>
               {message}
             </StyledText>
             <TouchableOpacity onPress={handleClose}>

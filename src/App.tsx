@@ -1,14 +1,15 @@
 import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import { store } from 'src/store/store'
-import { RootApp } from 'src/features/root/Root'
+import { NavigationContainer } from '@react-navigation/native'
+import { RootNav } from 'src/navigation/RootNav'
 
-const App = () => {
-  return (
-    <ReduxProvider store={store}>
-      <RootApp />
-    </ReduxProvider>
-  )
-}
+const App = () => (
+  <ReduxProvider store={store}>
+    <NavigationContainer>
+      <RootNav />
+    </NavigationContainer>
+  </ReduxProvider>
+)
 
 export default App

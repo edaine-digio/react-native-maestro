@@ -1,21 +1,23 @@
 export type RootStackParamList = {
   Launch: undefined
-  RootNavigation: undefined
   RegisterModal: undefined
+  AppNav: undefined
+  Splash: undefined
 }
 
 export enum RootStackRoutes {
   Launch = 'Launch',
-  RootNavigation = 'RootNavigation',
-  ReigsterModal = 'RegisterModal'
+  ReigsterModal = 'RegisterModal',
+  AppNav = 'AppNav',
+  Splash = 'Splash'
 }
 
-export type RootTabParamList = {
+export type TabParamList = {
   Home: undefined
   Settings: undefined
 }
 
-export enum RootTabRoutes {
+export enum TabRoutes {
   Home = 'Home',
   Settings = 'Settings'
 }
