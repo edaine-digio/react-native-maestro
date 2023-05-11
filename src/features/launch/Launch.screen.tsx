@@ -21,9 +21,9 @@ import { FormInput } from 'src/features/launch/components/FormInput.component'
 import { useLogin } from 'src/hooks/useLogin'
 import { RootStackParamList, RootStackRoutes } from 'src/utils/navigationUtils'
 import { object, string } from 'yup'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { StackScreenProps } from '@react-navigation/stack'
 
-type LaunchNavProps = NativeStackScreenProps<RootStackParamList>
+type LaunchNavProps = StackScreenProps<RootStackParamList>
 
 export const Launch = ({ navigation }: LaunchNavProps) => {
   const { login } = useLogin()

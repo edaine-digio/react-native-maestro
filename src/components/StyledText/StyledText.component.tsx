@@ -70,6 +70,7 @@ const useStyles = (
       fontSize: fontSize,
       fontFamily: fontFamily,
       color: color,
-      textAlign: alignment
+      textAlign: alignment,
+      includeFontPadding: false
     }
   })
