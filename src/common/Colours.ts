@@ -2,6 +2,7 @@ export const Colours = {
   Black: '#000',
   White: '#FFF',
   Sand: '#FFD1AD',
+  Flax: '#F5EDE0',
   Peach: '#FC9468',
   Denim: '#243746',
   MedGrey: '#8A8A8A',

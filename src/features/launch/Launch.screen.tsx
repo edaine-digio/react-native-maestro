@@ -1,6 +1,5 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Formik } from 'formik'
 import React from 'react'
+import { Formik } from 'formik'
 import { KeyboardAvoidingView } from 'react-native'
 import {
   Keyboard,
@@ -19,21 +18,15 @@ import {
   TextAlign
 } from 'src/components/StyledText/StyledText.component'
 import { FormInput } from 'src/features/launch/components/FormInput.component'
-import { useAppDispatch } from 'src/hooks/useAppDispatch'
 import { useLogin } from 'src/hooks/useLogin'
-import { storage } from 'src/store/deviceStore'
-import { updateUser } from 'src/store/slices/userSlice'
 import { RootStackParamList, RootStackRoutes } from 'src/utils/navigationUtils'
 import { object, string } from 'yup'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-type LaunchScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  RootStackRoutes.Launch
->
+type LaunchNavProps = NativeStackScreenProps<RootStackParamList>
 
-export const Launch = ({ navigation }: LaunchScreenProps) => {
+export const Launch = ({ navigation }: LaunchNavProps) => {
   const { login } = useLogin()
-  const dispatch = useAppDispatch()
 
   const loginSchema = object({
     email: string().required('Required').email('Invalid email'),
@@ -42,25 +35,7 @@ export const Launch = ({ navigation }: LaunchScreenProps) => {
 
   const handleLogin = async (email: string, password: string) => {
     Keyboard.dismiss()
-
-    const res = await login({ email: email, password: password })
-
-    if (res?.ok) {
-      const user = await res.json()
-      dispatch(
-        updateUser({
-          firstName: user.first_name,
-          lastName: user.last_name,
-          email: user.email,
-          token: user.token
-        })
-      )
-
-      storage.set('accessToken', user.token)
-      navigation.navigate(RootStackRoutes.RootNavigation)
-    } else {
-      console.log('ERROR', res?.status)
-    }
+    await login({ email: email, password: password })
   }
 
   const handleSignUp = () => {
@@ -73,7 +48,7 @@ export const Launch = ({ navigation }: LaunchScreenProps) => {
       style={styles.screenContainer}>
       <LinearGradient
         style={styles.screenContainer}
-        colors={[Colours.Peach, Colours.Sand]}>
+        colors={[Colours.Peach, Colours.Sand, Colours.Flax]}>
         <SafeAreaView style={styles.content}>
           <View style={styles.svg}>
             <SvgImages.DigioPrimary />

@@ -1,21 +1,22 @@
-import { Colours } from 'src/common/Colours'
+import { useState } from 'react'
 import { BASE_URL } from 'src/common/Urls'
 import { useAppDispatch } from 'src/hooks/useAppDispatch'
 import { storage } from 'src/store/deviceStore'
-import { showModal } from 'src/store/slices/modalSlice'
 import { updateUser } from 'src/store/slices/userSlice'
 
-interface LoginProps {
-  email: string
-  password: string
+interface GetUserProps {
+  email: string | undefined
+  token: string | undefined
 }
 
-export const useLogin = () => {
+export const useFetchUser = ({ email, token }: GetUserProps) => {
   const dispatch = useAppDispatch()
+  const [loading, setLoading] = useState(false)
 
-  const login = async ({ email, password }: LoginProps) => {
+  const fetchUser = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/users/login`, {
+      setLoading(true)
+      const response = await fetch(`${BASE_URL}/users/user`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -23,13 +24,13 @@ export const useLogin = () => {
         },
         body: JSON.stringify({
           email: email,
-          password: password
+          token: token
         })
       })
+
       if (response.ok) {
         const user = await response.json()
         storage.set('accessToken', user.token)
-        storage.set('email', user.email)
 
         dispatch(
           updateUser({
@@ -39,19 +40,14 @@ export const useLogin = () => {
             token: user.token
           })
         )
-      } else {
-        dispatch(
-          showModal({
-            title: 'Login Failed',
-            message: 'Something unexpected occurred.',
-            theme: Colours.Flamingo
-          })
-        )
       }
     } catch (error) {
-      console.log(error)
+      console.log('Error fetching user details:', error)
     }
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
   }
 
-  return { login }
+  return { fetchUser, loading }
 }
