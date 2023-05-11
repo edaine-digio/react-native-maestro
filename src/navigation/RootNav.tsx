@@ -1,4 +1,3 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Alert } from 'src/components/Alert/Alert.component'
@@ -10,8 +9,12 @@ import { AppNav } from 'src/navigation/AppNav'
 import { getFromStore } from 'src/store/deviceStore'
 import { RootState } from 'src/store/store'
 import { RootStackParamList, RootStackRoutes } from 'src/utils/navigationUtils'
+import {
+  TransitionPresets,
+  createStackNavigator
+} from '@react-navigation/stack'
 
-const Stack = createNativeStackNavigator<RootStackParamList>()
+const Stack = createStackNavigator<RootStackParamList>()
 
 export const RootNav = () => {
   const [showSplash, setShowSplash] = useState(true)
@@ -57,14 +60,17 @@ export const RootNav = () => {
 
   return (
     <>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          ...TransitionPresets.SlideFromRightIOS
+        }}>
         {!token ? (
           <>
             <Stack.Screen
               name={RootStackRoutes.Launch}
               component={Launch}
               options={() => ({
-                headerShown: false,
                 animationTypeForReplace: isSignout ? 'pop' : 'push'
               })}
             />
@@ -72,8 +78,7 @@ export const RootNav = () => {
               name={RootStackRoutes.ReigsterModal}
               component={Register}
               options={() => ({
-                headerShown: false,
-                presentation: 'formSheet'
+                presentation: 'modal'
               })}
             />
           </>
@@ -82,7 +87,6 @@ export const RootNav = () => {
             name={RootStackRoutes.AppNav}
             component={AppNav}
             options={() => ({
-              headerShown: false,
               animationTypeForReplace: 'push'
             })}
           />
