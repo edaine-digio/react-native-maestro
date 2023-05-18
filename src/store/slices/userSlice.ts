@@ -33,6 +33,9 @@ const userSlice = createSlice({
       state.email = action.payload.email
       state.token = action.payload.token
     },
+    refreshToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload
+    },
     clearState: state => {
       state.token = undefined
     },
@@ -42,6 +45,7 @@ const userSlice = createSlice({
   }
 })
 
-export const { updateUser, clearState, signout } = userSlice.actions
+export const { updateUser, refreshToken, clearState, signout } =
+  userSlice.actions
 
 export default userSlice.reducer

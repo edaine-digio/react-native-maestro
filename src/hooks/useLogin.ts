@@ -50,6 +50,13 @@ export const useLogin = () => {
       }
     } catch (error) {
       console.log(error)
+      dispatch(
+        showModal({
+          title: 'Login Failed',
+          message: 'Something unexpected occurred.',
+          theme: Colours.Flamingo
+        })
+      )
     }
   }
 

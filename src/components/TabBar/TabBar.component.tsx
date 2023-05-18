@@ -27,7 +27,8 @@ export const TabBar = ({
   const [translateX] = useState(new Animated.Value(0))
 
   const moveIndicator = (index: number) => {
-    Animated.spring(translateX, {
+    Animated.timing(translateX, {
+      duration: 250,
       toValue: index * TabWidth,
       useNativeDriver: true
     }).start()
@@ -36,6 +37,8 @@ export const TabBar = ({
   useEffect(() => {
     moveIndicator(state.index)
   }, [state.index])
+
+  const styles = useStyles(state.index)
 
   return (
     <View style={styles.container}>
@@ -77,6 +80,7 @@ export const TabBar = ({
 
         return (
           <TouchableOpacity
+            key={index.toString()}
             accessibilityRole="button"
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -99,46 +103,72 @@ export const TabBar = ({
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    width: TabBarWidth,
-    height: 64,
-    position: 'absolute',
-    bottom: Padding.LG,
-    backgroundColor: Colours.LightGrey,
-    borderRadius: Padding.MD,
-    alignSelf: 'center'
-  },
-  tabButton: {
-    flex: 1,
-    width: TabWidth,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  indicatorContainer: {
-    width: TabWidth,
-    alignItems: 'center',
-    // StyleSheet.absoluteFill is a shortcut for:
-    // styleX: {
-    //   position: 'absolute',
-    //   top: 0,
-    //   right: 0,
-    //   bottom: 0,
-    //   left: 0
-    // }
-    // absoluteFill is used in an array of styles
-    // absoluteFillObject is the spreadable version used in custom styles and spread here to
-    // allow for added customisability
-    ...StyleSheet.absoluteFillObject
-  },
-  indicator: {
-    width: 64,
-    height: 64,
-    bottom: 24,
-    borderRadius: 24,
-    borderWidth: 4,
-    borderColor: Colours.Sand,
-    backgroundColor: Colours.Flax
+const useStyles = (index: number) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      width: TabBarWidth,
+      height: 64,
+      position: 'absolute',
+      bottom: Padding.LG,
+      backgroundColor: Colours.LightGrey,
+      borderRadius: Padding.MD,
+      alignSelf: 'center'
+    },
+    tabButton: {
+      flex: 1,
+      width: TabWidth,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    indicatorContainer: {
+      width: TabWidth,
+      alignItems: 'center',
+      // StyleSheet.absoluteFill is a shortcut for:
+      // styleX: {
+      //   position: 'absolute',
+      //   top: 0,
+      //   right: 0,
+      //   bottom: 0,
+      //   left: 0
+      // }
+      // absoluteFill is used in an array of styles
+      // absoluteFillObject is the spreadable version used in custom styles and spread here to
+      // allow for added customisability
+      ...StyleSheet.absoluteFillObject
+    },
+    indicator: {
+      width: 64,
+      height: 64,
+      bottom: 24,
+      borderRadius: 24,
+      borderWidth: 4,
+      borderColor: getIndicatorBorderColor(index),
+      backgroundColor: getIndicatorBgColor(index)
+    }
+  })
+
+const getIndicatorBorderColor = (index: number) => {
+  switch (index) {
+    case 0:
+      return Colours.Spring
+    case 1:
+      return Colours.Flamingo
+    case 2:
+      return Colours.Butter
+    default:
+      return Colours.Violet
   }
-})
+}
+const getIndicatorBgColor = (index?: number) => {
+  switch (index) {
+    case 0:
+      return Colours.LightSpring
+    case 1:
+      return Colours.LightFlamingo
+    case 2:
+      return Colours.LightButter
+    default:
+      return Colours.LightViolet
+  }
+}

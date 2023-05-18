@@ -4,7 +4,7 @@ import { Alert } from 'src/components/Alert/Alert.component'
 import { Launch } from 'src/features/launch/Launch.screen'
 import { Register } from 'src/features/launch/Register.modal'
 import { Splash } from 'src/features/splash/Splash.screen'
-import { useFetchUser } from 'src/hooks/useFetchUser'
+import { useUser } from 'src/hooks/useUser'
 import { AppNav } from 'src/navigation/AppNav'
 import { getFromStore } from 'src/store/deviceStore'
 import { RootState } from 'src/store/store'
@@ -25,12 +25,9 @@ export const RootNav = () => {
 
   const { token, isSignout } = useSelector((state: RootState) => state.user)
 
-  const { getToken, getEmail } = getFromStore()
+  const { getToken } = getFromStore()
 
-  const { fetchUser, loading } = useFetchUser({
-    email: getEmail(),
-    token: getToken()
-  })
+  const { fetchUser, loading } = useUser()
 
   useEffect(() => {
     if (getToken()) {
