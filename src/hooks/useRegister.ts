@@ -1,4 +1,7 @@
+import { Colours } from 'src/common/Colours'
 import { BASE_URL } from 'src/common/Urls'
+import { useAppDispatch } from 'src/hooks/useAppDispatch'
+import { showModal } from 'src/store/slices/modalSlice'
 
 interface RegisterProps {
   firstName: string
@@ -8,6 +11,8 @@ interface RegisterProps {
 }
 
 export const useRegister = () => {
+  const dispatch = useAppDispatch()
+
   const register = async ({
     firstName,
     lastName,
@@ -29,8 +34,25 @@ export const useRegister = () => {
         })
       })
 
-      return response
+      if (response.ok) {
+        return response
+      }
+
+      dispatch(
+        showModal({
+          title: 'Sign up failed!',
+          message: 'Something unexpected occurred.',
+          theme: Colours.Flamingo
+        })
+      )
     } catch (error) {
+      dispatch(
+        showModal({
+          title: 'Sign up failed!',
+          message: 'Something unexpected occurred.',
+          theme: Colours.Flamingo
+        })
+      )
       console.log(error)
     }
   }

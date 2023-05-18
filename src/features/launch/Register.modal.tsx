@@ -222,13 +222,14 @@ export const Register = () => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: Padding.XL,
     flex: 1
   },
   background: {
     position: 'absolute',
     width: '150%',
     height: '150%',
-    bottom: -50,
+    bottom: -30,
     left: -100,
     zIndex: -999
   },

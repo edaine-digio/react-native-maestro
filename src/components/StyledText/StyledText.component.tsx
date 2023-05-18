@@ -20,7 +20,7 @@ export const StyledText = ({
   fontSize,
   fontWeight = 400,
   color = Colours.Black,
-  alignment = TextAlign.Right,
+  alignment = TextAlign.Left,
   children
 }: StyledTextProps) => {
   let fontFamily = ''
