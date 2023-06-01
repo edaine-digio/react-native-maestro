@@ -11,50 +11,41 @@ This project is to be used for the basis of Digio Internal Training.
 
 ## Setup Instructions
 
-1. Ensure the following software is installed:
-
+1. Clone the repo.
+2. Ensure the following software is installed:
 - [Homebrew](https://brew.sh/)
-- Node (version 14 or later)
-  - [NVM](https://github.com/nvm-sh/nvm) is preferred as to not disrupt other workspaces relying on a particular Node version as there are some cases where React Native is incompatible with certain Node versions, `18.16.0` is the latest I've found to work.
-- [Rbenv](https://github.com/rbenv/rbenv) (follow the library's readme and install Ruby version 3.1.2)
-  - Run `rbenv init` then `rbenv install 3.1.2` in the project directory
-  - Run `rbenv local 3.1.2` then restart your terminal to ensure the changes take effect
-- [Xcode v14.3](https://developer.apple.com/download/all/?q=Xcode)
-- [Xcode Command Line Tools](https://developer.apple.com/download/all/?q=Xcode)
-  - Ensure the version of Command Line Tools matches the version of Xcode
+- [asdf](https://asdf-vm.com/) to manage multiple tooling dependancies
+  - And the following asdf plugins:
+    - **nodejs** with `asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git`
+    - **java** with `asdf plugin-add java https://github.com/halcyon/asdf-java.git`
+      - Run `. ~/.asdf/plugins/java/set-java-home.zsh` after installing to set `$JAVA_HOME`
+    - **ruby** with `asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git`
+    - **cocoapods** with `asdf plugin add cocoapods https://github.com/ronnnnn/asdf-cocoapods.git`
+
+- [Xcodes](https://github.com/XcodesOrg/XcodesApp) to download & manage Xcode versions.
+  - Install and run Xcodes, install Xcode 14.3 and make it the Active Xcode.
+- Install Xcode Command Line Tools by running `xcode-select --install` in the terminal
+
 - [Android Studio](https://developer.android.com/studio) (Flamingo version)
   - Make sure to check `Android SDK`, `Android SDK Platform` and `Android Virtual Device` when installing.
 
-2. Fork this repo using your preferred method
-3. Clone the repo from your personal Gitlab account
-4. Run `yarn install` to download the necessary dependencies for this project
-5. Run `cd ios` then `bundle install` then `bundle exec pod install` to install the iOS dependencies as the Pods folder is under `.gitignore`
+
+3. Run `npm install` from the project root directory to download the necessary dependencies for this project
+4. Run `cd ios` then `pod install` to install the iOS dependencies as the Pods folder is under `.gitignore`
 
 ## iOS Setup
 
 This is (hopefully) the more straightforward of the two operating systems. To run the project in a local iOS simulator:
 
 1. In the root directory of the project, open a terminal and run `brew install watchman`
-2. Run `yarn ios` in the terminal
+2. Run `npm run ios` in the terminal
 
 If everything has been installed correctly, the Metro bundler and an iOS Simulator should run and launch the app locally.
-
-- The targeted iOS simulator can be altered by adding a `--simulator="<Name of iOS device>"` to `yarn ios` in either the `package.json` script or in the command line.
-  e.g. `yarn ios --simulator="iPhone 14 Pro Max"` or
-  in `package.json` as a default simulator:
-  ```
-  "scripts": {
-    "ios": "react-native run-ios --simulator='iPhone 14 Pro Max'"
-  }
-  ```
 
 ## Android Setup
 
 The Android setup requires a few additional steps to get up and running:
 
-1. Run `brew tap homebrew/cask-versions` then `brew install --cask zulu11`
-
-- Zulu11 is an OpenJDK for M1 Macs
 
 2. Open Android Studio and from the landing screen navigate to `More Actions` and select `SDK Manager`
 3. Check `Show Package Details` in the bottom right corner
@@ -83,6 +74,6 @@ The Android setup requires a few additional steps to get up and running:
 - Ensure this device runs by running `yarn android` - if it does, you can safely delete the device from Virtual Device Manager
 
 11. Create another device, now targetting Android 13 (select `Tiramisu` from the `Recommended` tab instead of `ARM Images` tab) - this is just a sanity check to ensure there are no issues as there have been problems experienced when using Android versions in the Recommended tab straight off the bat.
-12. In a terminal pointing at the project's root directory, run `yarn android` and ensure the Android 13 device runs correctly
+12. In a terminal pointing at the project's root directory, run `npm run android` and ensure the Android 13 device runs correctly
 
 If everything has been installed correctly, the Metro bundler and an Android Emulator should run and launch the app locally.
