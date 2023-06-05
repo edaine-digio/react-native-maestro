@@ -27,9 +27,11 @@ import {
 
 type SectionProps = PropsWithChildren<{
   title: string;
-}>;
+}>; 
 
-import { Test } from 'components/Test/Test';
+import { Test } from 'src/components/Test/Test.component';
+import file2 from 'assets/test.json'
+// import { Test } from '@components/Test/Test.component';
 
 function Section({children, title}: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -52,7 +54,7 @@ function Section({children, title}: SectionProps): JSX.Element {
             color: isDarkMode ? Colors.light : Colors.dark,
           },
         ]}>
-        {children}
+        {file2.hello}
       </Text>
     </View>
   );
