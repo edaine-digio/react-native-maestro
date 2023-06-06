@@ -12,16 +12,14 @@ module.exports = {
           '.ts',
           '.tsx',
           '.json',
-          '.svg'
+          '.svg',
         ],
         alias: {
-          'src': './src',
-          'components': './src/components',
-          // '@components': './src/components',
-          'assets': './assets',
-          
-        }
-      }
-    ]
-  ]
-}
+          src: './src',
+          '@components': './src/components',
+          assets: './assets',
+        },
+      },
+    ],
+  ],
+};

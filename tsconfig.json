@@ -20,12 +20,9 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      // "src/*": ["src/*"],
-      "assets/*": ["assets/*"],
-      // "components/*": ["src/components/*"],
-      "@components/*": [
-        "src/components/*"
-      ],
+      "@components/*": ["src/components/*"],
+      "src/*": ["src/*"],
+      "assets/*": ["assets/*"]
     }
   },
   "exclude": [
