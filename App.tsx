@@ -1,7 +1,23 @@
 import React from 'react';
 
-import { Login } from 'src/features/login/Login.screen';
+import { StyleSheet, Text, View } from 'react-native';
 
 export const App = () => {
-  return <Login />;
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Start here!</Text>
+    </View>
+  );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'grey',
+  },
+  text: {
+    color: 'white',
+  },
+});
