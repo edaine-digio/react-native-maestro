@@ -23,7 +23,8 @@ This project is to be used for the basis of Digio Internal Training.
     - **cocoapods** with `asdf plugin add cocoapods https://github.com/ronnnnn/asdf-cocoapods.git`
 - Run `which ruby` `which java` `which ruby` `which pod` and ensure they are all coming from the asdf shim
 - [Xcodes](https://github.com/XcodesOrg/XcodesApp) to download & manage Xcode versions.
-  - Install and run Xcodes, install Xcode 14.3 and make it the Active Xcode.
+  - Install and run Xcodes, install Xcode 15.0 and make it the Active Xcode.
+  - Be sure to open Xcode 15.0 for the first time for it to instal the iOS images.
 - Install Xcode Command Line Tools by running `xcode-select --install` in the terminal
 
 - [Android Studio](https://developer.android.com/studio) (Flamingo version)
