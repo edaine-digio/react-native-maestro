@@ -21,7 +21,7 @@ This project is to be used for the basis of Digio Internal Training.
       - Run `. ~/.asdf/plugins/java/set-java-home.zsh` after installing to set `$JAVA_HOME`
     - **ruby** with `asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git`
     - **cocoapods** with `asdf plugin add cocoapods https://github.com/ronnnnn/asdf-cocoapods.git`
-- Run `which ruby` `which java` `which ruby` `which pod` and ensure they are all coming from the asdf shim
+- Run `which ruby` `which java` `which ruby` `which pod` from within the project repo and ensure they are all coming from the asdf shim
 - [Xcodes](https://github.com/XcodesOrg/XcodesApp) to download & manage Xcode versions.
   - Install and run Xcodes, install Xcode 15.0 and make it the Active Xcode.
   - Be sure to open Xcode 15.0 for the first time for it to instal the iOS images.
