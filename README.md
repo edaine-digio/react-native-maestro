@@ -79,3 +79,7 @@ The Android setup requires a few additional steps to get up and running:
 11. In a terminal pointing at the project's root directory, run `npm run android` and ensure the Android 13 device runs correctly
 
 If everything has been installed correctly, the Metro bundler and an Android Emulator should run and launch the app locally.
+
+## Setup Troubleshooting
+- Don't keep the project folder in ~/Documents
+- Add more issues/fixes here as they present themselves
