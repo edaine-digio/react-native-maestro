@@ -81,5 +81,5 @@ The Android setup requires a few additional steps to get up and running:
 If everything has been installed correctly, the Metro bundler and an Android Emulator should run and launch the app locally.
 
 ## Setup Troubleshooting
-- Don't keep the project folder in ~/Documents
+- Don't keep the project folder in `~/Documents`
 - Add more issues/fixes here as they present themselves
