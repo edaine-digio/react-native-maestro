@@ -62,6 +62,7 @@ The Android setup requires a few additional steps to get up and running:
 - `export ANDROID_HOME=$HOME/Library/Android/sdk`
 - `export PATH=$PATH:$ANDROID_HOME/emulator`
 - `export PATH=$PATH:$ANDROID_HOME/platform-tools`
+- `export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home`
 
 6. Save and run `source ~/.zshrc` to apply changes
 7. Verify the appropriate directories have been added to your path with `echo $ANDROID_HOME` then `echo $PATH`
