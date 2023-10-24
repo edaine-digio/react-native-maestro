@@ -74,7 +74,7 @@ The Android setup requires a few additional steps to get up and running:
 - As a starting point, select a Pixel 6 (supports Android 13 Tiramisu) and click `Next`
 - For the Android Version, select `ARM Images` and download the latest image (should be version `S` targeting Android 12.0)
 - The default settings should be fine as a starting point, but for consistency's sake, you may want to select `Show Advanced Settings` and uncheck `Enable Device Frame` to avoid any strange device-specific camera islands or frame notches
-- Ensure this device runs by running `yarn android` - if it does, you can safely delete the device from Virtual Device Manager
+- Ensure this device runs by running `npm run android` - if it does, you can safely delete the device from Virtual Device Manager
 
 10. Create another device, now targetting Android 13 (select `Tiramisu` from the `Recommended` tab instead of `ARM Images` tab) - this is just a sanity check to ensure there are no issues as there have been problems experienced when using Android versions in the Recommended tab straight off the bat.
 11. In a terminal pointing at the project's root directory, run `npm run android` and ensure the Android 13 device runs correctly
