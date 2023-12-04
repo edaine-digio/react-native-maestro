@@ -12,9 +12,6 @@ workflows:
     steps:
     - activate-ssh-key@4: {}
     - git-clone@8: {}
-    - asdf current
-    - asdf install nodejs 18
-    - asdf local nodejs 18
     - npm@1:
         inputs:
         - workdir: $WORKDIR
@@ -52,6 +49,16 @@ workflows:
     - activate-ssh-key@4: {}
     - git-clone@8: {}
     - restore-npm-cache@1: {}
+    - script:
+        title: Install correct nodejs version
+        inputs:
+          content: |-
+            #!/bin/bash
+            set -ex
+            NODE_VERSION=18
+            asdf current
+            asdf install nodejs $NODE_VERSION
+            asdf local nodejs $NODE_VERSION
     - npm@1:
         inputs:
         - workdir: $WORKDIR
