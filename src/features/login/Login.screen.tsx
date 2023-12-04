@@ -37,6 +37,7 @@ export const Login = ({ navigation }: LoginScreenProps) => {
           secureTextEntry
         />
         <MPButton
+          testID="btn-login"
           title="Login"
           disabled={disableLoginButton}
           onPress={handleLogin}

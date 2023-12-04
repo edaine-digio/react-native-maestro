@@ -29,7 +29,12 @@ export const Profile = () => {
         placeholder="Write a post here!"
         onChange={setPostContent}
       />
-      <MPButton disabled={false} title="Post!" onPress={handleCreatePost} />
+      <MPButton
+        testID="btn-post"
+        disabled={false}
+        title="Post!"
+        onPress={handleCreatePost}
+      />
     </View>
   );
 };

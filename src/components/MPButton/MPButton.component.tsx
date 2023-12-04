@@ -13,9 +13,11 @@ type MPButtonProps = {
   title: string;
   disabled?: boolean;
   onPress?: (event: GestureResponderEvent) => void;
+  testID: string;
 };
 
 export const MPButton = ({
+  testID: id,
   disabled = false,
   title,
   onPress,
@@ -23,7 +25,9 @@ export const MPButton = ({
   return (
     <TouchableOpacity
       style={disabled ? [styles.button, styles.disabled] : styles.button}
+      testID={id}
       disabled={disabled}
+      accessibilityRole="button"
       onPress={onPress}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>

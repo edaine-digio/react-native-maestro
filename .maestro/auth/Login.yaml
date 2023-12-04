@@ -1,0 +1,15 @@
+appId: com.reactnativetraining.ReactNativeTraining
+---
+- clearState
+- launchApp
+- runScript: "../../src/features/login/login.elements.js"
+- assertVisible:
+    id: ${output.login.loginBtn}
+    enabled: false
+- tapOn: "Email"
+- inputRandomEmail
+- tapOn: "Password"
+- inputRandomText
+- assertVisible:
+    id: ${output.login.loginBtn}
+    enabled: true

@@ -1,0 +1,5 @@
+# .maestro/config.yaml
+
+# Maestro config
+flows:
+  - auth/*
