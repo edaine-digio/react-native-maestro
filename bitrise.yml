@@ -12,6 +12,9 @@ workflows:
     steps:
     - activate-ssh-key@4: {}
     - git-clone@8: {}
+    - asdf current
+    - asdf install nodejs 18
+    - asdf local nodejs 18
     - npm@1:
         inputs:
         - workdir: $WORKDIR
